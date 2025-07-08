@@ -1,0 +1,26 @@
+import { Request, Response } from "express";
+
+import * as userService from "../services/userService";
+
+export const createUser = async (req: Request, res: Response): Promise<void> => {
+  const data = req.body;
+  const user = await userService.create(data);
+  res.status(201).json(user);
+};
+export const getUserByEmail = async (req: Request, res: Response): Promise<void> => {
+  const { email } = req.params;
+  const userId = req.user?.id; // Assume que o ID do usuário está no token JWT
+
+  if (!userId) {
+    res.status(401).json({ error: "Usuário não autenticado" });
+    return;
+  }
+
+  const user = await userService.findByEmail(email, userId);
+  if (!user) {
+    res.status(404).json({ error: "Usuário não encontrado" });
+    return;
+  }
+
+  res.status(200).json(user);
+};

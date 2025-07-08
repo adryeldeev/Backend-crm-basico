@@ -11,3 +11,7 @@ export const updateUserSchema = z.object({
   password: z.string().min(6).optional(),
   name: z.string().optional()
 });
+
+export const getUserByEmailSchema = z.object({
+  email: z.string().email("E-mail inválido")
+});

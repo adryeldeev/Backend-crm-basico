@@ -18,13 +18,13 @@ export const createInteraction = async (req: Request, res: Response): Promise<vo
 };
 
 
-
 export const getInteractionsByClientId = async (req: Request, res: Response): Promise<void> => {
   const { clientId } = req.params;
 
   const interactions = await interactionService.findByClientId(clientId);
   res.status(200).json(interactions);
 };
+// Rota para buscar todas as interações do usuário autenticado
 
 export const getInteractionsByUserId = async (req: Request, res: Response): Promise<void> => {
   if (!req.user) {

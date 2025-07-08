@@ -17,6 +17,7 @@ export const findInteractionsByUserId = async (userId: string) => {
   });
 };
 
+
 export const findInteractionById = async (id: string) => {
   return await prisma.interaction.findUnique({
     where: { id },
