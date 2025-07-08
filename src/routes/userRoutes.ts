@@ -11,3 +11,4 @@ router.post("/user", validate(createUserSchema), createUser);
 
 // Rota para buscar um usuário por email
 router.get("/user/email/:email", validate(getUserByEmailSchema), getUserByEmail);
+

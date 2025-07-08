@@ -24,3 +24,22 @@ export const getUserByEmail = async (req: Request, res: Response): Promise<void>
 
   res.status(200).json(user);
 };
+
+export const login = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400).json({ error: "E-mail e senha são obrigatórios" });
+    return;
+  }
+
+  const user = await userService.login(email, password);
+  if (!user) {
+    res.status(401).json({ error: "E-mail ou senha inválidos" });
+    return;
+  }
+
+  // Aqui você pode gerar um token JWT e retornar para o usuário
+  res.status(200).json({ message: "Login bem-sucedido", user });
+};
+
