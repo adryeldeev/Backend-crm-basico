@@ -24,3 +24,5 @@ router.put('/interaction/:id', authenticate, validate(updateInteractionSchema), 
 // Rota para deletar uma interação, autenticado
 router.delete('/interaction/:id', authenticate, deleteInteraction);
 
+
+export default router;

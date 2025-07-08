@@ -27,3 +27,10 @@ export const update = async (id: string, data: any, userId: string) => {
     data
   });
 };
+
+// Deletar cliente apenas se for do usuário logado
+export const deleteClient = async (id: string, userId: string) => {
+  return await prisma.client.deleteMany({
+    where: { id, userId }
+  });
+}

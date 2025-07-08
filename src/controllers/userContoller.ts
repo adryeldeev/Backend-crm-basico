@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-
+import jwt from "jsonwebtoken";
 import * as userService from "../services/userService";
 
 export const createUser = async (req: Request, res: Response): Promise<void> => {
@@ -39,7 +39,20 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  // Aqui você pode gerar um token JWT e retornar para o usuário
-  res.status(200).json({ message: "Login bem-sucedido", user });
+  // Aqui você pode adicionar a lógica para gerar um token JWT
+    const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET!, {
+    expiresIn: "1h",
+  });
+
+  // Retorna o token e os dados do usuário
+  res.status(200).json({
+    message: "Login bem-sucedido",
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.name, // Supondo que o usuário tenha um campo 'name'
+    },
+    token, // Retorna o token JWT
+  });
 };
 

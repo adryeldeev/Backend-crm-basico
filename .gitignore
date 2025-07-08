@@ -3,3 +3,6 @@ node_modules
 .env
 
 /generated/prisma
+
+src/generateKey.ts
+# Ignore the generated key file
