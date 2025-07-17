@@ -10,7 +10,7 @@ const router = Router();
 router.post("/client", authenticate, validate(createClientSchema), createClient); 
 
  // Rota para buscar todos os clientes do usuário autenticado
-router.get('client', authenticate, getClients); 
+router.get('/client', authenticate, getClients); 
 
 router.get('/client/:id', authenticate, getClientById );
 

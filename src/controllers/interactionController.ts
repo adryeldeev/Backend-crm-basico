@@ -6,10 +6,10 @@ export const createInteraction = async (req: Request, res: Response): Promise<vo
     res.status(401).json({ error: "Não autenticado" });
     return;
   }
-
+const userId = req.user.id; // ✅ agora tipado corretamente
   const data = {
     ...req.body,
-    userId: req.user.id,
+  userId
   };
 
   const interaction = await interactionService.create(data);

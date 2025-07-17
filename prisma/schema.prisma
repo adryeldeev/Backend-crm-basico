@@ -39,23 +39,23 @@ model Client {
   @@map("clients")
 }
 
-model Interaction {
-  id           String           @id @default(uuid())
-  type         InteractionType
-  date         DateTime
-  description  String           @db.Text
-  result       String?          @db.Text
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
-  clientId     String
-  userId       String
-  user         User             @relation(fields: [userId], references: [id])
-  client       Client           @relation(fields: [clientId], references: [id])
+  model Interaction {
+    id           String           @id @default(uuid())
+    type         InteractionType
+    date         DateTime
+    description  String           @db.Text
+    result       String?          @db.Text
+    createdAt    DateTime         @default(now())
+    updatedAt    DateTime         @updatedAt
+    clientId     String
+    userId       String
+    user         User             @relation(fields: [userId], references: [id])
+    client       Client           @relation(fields: [clientId], references: [id])
 
-  @@index([clientId])
-  @@index([userId])
-  @@map("interactions")
-}
+    @@index([clientId])
+    @@index([userId])
+    @@map("interactions")
+  }
 
 enum FunnelStatus {
   LEAD
@@ -67,7 +67,7 @@ enum FunnelStatus {
 enum InteractionType {
   REUNIAO
   LIGACAO
-  EMAIL
+  EMAIL 
   PROPOSTA
   OUTROS
   WHATSAPP

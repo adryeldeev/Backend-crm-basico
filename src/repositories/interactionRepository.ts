@@ -6,14 +6,14 @@ export const createInteraction = async (data: any) => {
 };
 export const findInteractionsByClientId = async (clientId: string) => {
   return await prisma.interaction.findMany({
-    where: { clientId },
-    include: { user: true }, // Inclui os dados do usuário relacionado
+    where: { clientId }, // usa a string diretamente
+    include: { user: true },
   });
 };
 export const findInteractionsByUserId = async (userId: string) => {
   return await prisma.interaction.findMany({
     where: { userId },
-    include: { client: true }, // Inclui os dados do cliente relacionado
+    include: { client: true }, 
   });
 };
 

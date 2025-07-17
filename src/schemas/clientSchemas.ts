@@ -8,7 +8,6 @@ export const createClientSchema = z.object({
     position: z.string().optional(),
     status: z.enum(["LEAD", "CONTATO", "PROPOSTA", "FECHADO"]).optional(),
     observations: z.string().optional(),
-    userId:z.string()
 })
 
 export const updateClientSchema = z.object({

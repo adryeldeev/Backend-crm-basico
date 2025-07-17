@@ -44,6 +44,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     expiresIn: "1h",
   });
 
+  if (!token) {
+    res.status(500).json({ error: "Erro ao gerar token" });
+    return;
+  }
+
   // Retorna o token e os dados do usuário
   res.status(200).json({
     message: "Login bem-sucedido",

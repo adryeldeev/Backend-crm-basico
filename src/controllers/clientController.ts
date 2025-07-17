@@ -7,14 +7,16 @@ export const createClient = async (req: Request, res: Response): Promise<void> =
     return;
   }
 
+  const userId = req.user.id; // ✅ agora tipado corretamente
   const data = {
     ...req.body,
-    userId: req.user.id,
+    userId,
   };
 
   const client = await clientService.create(data);
   res.status(201).json(client);
 };
+
 
 export const getClients = async (req: Request, res: Response): Promise<void> => {
   if (!req.user) {
@@ -43,7 +45,7 @@ export const getClientById = async (req: Request, res: Response): Promise<void> 
   res.status(200).json(client);
 };
 
-export const updateClient = async (req: Request, res: Response): Promise<void> => {
+export const updateClient = async (req: Request & { user?: { id: string } }, res: Response): Promise<void> => {
   if (!req.user) {
     res.status(401).json({ error: "Usuário não autenticado" });
     return;
@@ -51,8 +53,11 @@ export const updateClient = async (req: Request, res: Response): Promise<void> =
 
   const { id } = req.params;
   const data = req.body;
+  const userId = req.user.id;
 
-  const updatedClient = await clientService.update(id, data, req.user.id);
+  // Passa userId para garantir que atualiza só o cliente do usuário logado
+  const updatedClient = await clientService.update(id, data, userId);
+
   if (!updatedClient) {
     res.status(404).json({ error: "Cliente não encontrado" });
     return;
@@ -61,15 +66,18 @@ export const updateClient = async (req: Request, res: Response): Promise<void> =
   res.status(200).json(updatedClient);
 };
 
-export const deleteClient = async (req: Request, res: Response): Promise<void> => {
+export const deleteClient = async (req: Request & { user?: { id: string } }, res: Response): Promise<void> => {
   if (!req.user) {
     res.status(401).json({ error: "Usuário não autenticado" });
     return;
   }
 
   const { id } = req.params;
+  const userId = req.user.id;
 
-  const deletedClient = await clientService.remove(id, req.user.id);
+  // Passa userId para garantir que exclui só o cliente do usuário logado
+  const deletedClient = await clientService.remove(id, userId);
+
   if (!deletedClient) {
     res.status(404).json({ error: "Cliente não encontrado" });
     return;
