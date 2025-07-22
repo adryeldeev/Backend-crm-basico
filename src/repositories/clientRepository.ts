@@ -34,3 +34,13 @@ export const deleteClient = async (id: string, userId: string) => {
     where: { id, userId }
   });
 }
+
+export const getStatusDistribution = async (userId: string) => {
+  return await prisma.client.groupBy({
+    by: ["status"],
+    where: { userId },
+    _count: {
+      status: true,
+    },
+  });
+};

@@ -25,3 +25,7 @@ export const remove = async (id: string, userId: string) => {
   // validações, regras de negócio, etc.
   return await clientRepository.deleteClient(id, userId);
 };
+
+export const getStatusDistribution = async (userId: string) => {
+  return await clientRepository.getStatusDistribution(userId);
+};

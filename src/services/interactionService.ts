@@ -3,6 +3,9 @@ import * as interactionRepository from "../repositories/interactionRepository";
 export const create = async (data: any) => {
   return await interactionRepository.createInteraction(data);
 };
+export const getAll = async () => {
+  return await interactionRepository.findAllInteractions();
+}
 
 export const findByClientId = async (clientId: string) => {
   return await interactionRepository.findInteractionsByClientId(clientId);

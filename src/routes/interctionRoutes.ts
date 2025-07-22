@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {createInteraction, deleteInteraction, getInteractionsByClientId, getInteractionsByUserId, updateInteraction} from "../controllers/interactionController";
+import {createInteraction, deleteInteraction, getAllInteractions, getInteractionsByClientId, getInteractionsByUserId, updateInteraction} from "../controllers/interactionController";
 
 import { validate } from "../middlewares/validade";
 import { authenticate } from "../middlewares/auth";
@@ -8,6 +8,8 @@ import { createInteractionSchema, updateInteractionSchema } from "../schemas/int
 const router = Router();
 router.post("/interaction", authenticate, validate(createInteractionSchema), createInteraction);
 
+// Rota para buscar todas as interações
+router.get("/interaction/all", authenticate, getAllInteractions);
 // Rota para buscar todas as interações do usuário autenticado
 router.get('/interaction', authenticate, getInteractionsByUserId);
 

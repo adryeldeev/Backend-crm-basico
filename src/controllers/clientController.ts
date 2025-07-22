@@ -85,3 +85,17 @@ export const deleteClient = async (req: Request & { user?: { id: string } }, res
 
   res.status(204).send();
 };
+
+
+export const statusDistribution = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id; // ou req.userId, dependendo do seu middleware
+    if (!userId) return res.status(401).json({ message: "Não autorizado" });
+
+    const result = await clientService.getStatusDistribution(userId);
+    return res.json(result);
+  } catch (error) {
+    console.error("Erro ao buscar distribuição de status:", error);
+    return res.status(500).json({ message: "Erro interno do servidor" });
+  }
+};

@@ -17,6 +17,10 @@ const userId = req.user.id; // ✅ agora tipado corretamente
   res.status(201).json(interaction);
 };
 
+export const getAllInteractions = async (req: Request, res: Response): Promise<void> => {
+  const interactions = await interactionService.getAll();
+  res.status(200).json(interactions);
+}
 
 export const getInteractionsByClientId = async (req: Request, res: Response): Promise<void> => {
   const { clientId } = req.params;
